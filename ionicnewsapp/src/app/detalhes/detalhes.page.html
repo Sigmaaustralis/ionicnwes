@@ -1,0 +1,31 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>detalhes</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()" color="danger">Logout</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">detalhes</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div *ngIf="noticia" style="padding: 16px;">
+    <img [src]="noticia.urlToImage || 'assets/icon/favicon.png'" alt="imagem" style="width: 100%; max-height: 250px; object-fit: cover; margin-bottom: 16px;" />
+    <h2>{{ noticia.title }}</h2>
+    <p><strong>Fonte:</strong> {{ noticia.source?.name }}</p>
+    <p><strong>Publicado em:</strong> {{ noticia.publishedAt | date:'short' }}</p>
+    <p>{{ noticia.description }}</p>
+    <p>{{ noticia.content }}</p>
+    <ion-button expand="block" color="warning" (click)="toggleFavorito()">
+      <ion-icon slot="start" [name]="isFav ? 'star' : 'star-outline'"></ion-icon>
+      {{ isFav ? 'Remover dos Favoritos' : 'Adicionar aos Favoritos' }}
+    </ion-button>
+    <ion-button expand="block" color="primary" *ngIf="noticia.url" [href]="noticia.url" target="_blank">Ler notícia completa</ion-button>
+  </div>
+  <ion-text color="danger" *ngIf="!noticia">Notícia não encontrada.</ion-text>
+</ion-content>
